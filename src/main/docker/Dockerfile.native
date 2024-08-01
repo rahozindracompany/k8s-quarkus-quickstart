@@ -14,12 +14,17 @@
 # docker run -i --rm -p 8080:8080 quarkus/kubernetes-quarkus
 #
 ###
+FROM quay.io/quarkus/ubi-quarkus-mandrel-builder-image:22.1-java11 AS build
+COPY . /usr/src/app
+WORKDIR /usr/src/app
+RUN ./mvnw clean package -Pnative -DskipTests
+
 FROM registry.access.redhat.com/ubi8/ubi-minimal:8.9
 WORKDIR /work/
 RUN chown 1001 /work \
     && chmod "g+rwX" /work \
     && chown 1001:root /work
-COPY --chown=1001:root target/kubernetes-quarkus-1.0.0-SNAPSHOT-native-image-source-jar /work/application
+COPY --chown=1001:root target/*-runner /work/application
 
 EXPOSE 8080
 USER 1001
