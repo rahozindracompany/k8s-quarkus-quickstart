@@ -14,7 +14,7 @@
 # docker run -i --rm -p 8080:8080 quarkus/kubernetes-quarkus
 #
 ###
-FROM quay.io/quarkus/ubi-quarkus-mandrel-builder-image:22.1-java17 AS build
+FROM quay.io/quarkus/ubi-quarkus-mandrel-builder-image:23.1-java17 AS build
 WORKDIR /project
 
 # Copiar el código fuente y el archivo de configuración de Maven
