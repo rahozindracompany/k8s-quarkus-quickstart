@@ -11,6 +11,6 @@ public class GreetingResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
-        return "Hola mundo para formacion de Quarkus en Indra";
+        return "Hola mundo generacion de kubernetes.yml automatico para formacion de Quarkus en Indra";
     }
 }

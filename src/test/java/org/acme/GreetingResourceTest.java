@@ -14,7 +14,7 @@ class GreetingResourceTest {
           .when().get("/hello")
           .then()
              .statusCode(200)
-             .body(is("Hola mundo para formacion de Quarkus en Indra"));
+             .body(is("Hola mundo generacion de kubernetes.yml automatico para formacion de Quarkus en Indra"));
     }
 
 }
