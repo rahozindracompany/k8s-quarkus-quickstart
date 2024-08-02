@@ -77,16 +77,36 @@
 #   accessed directly. (example: "foo.example.com,bar.example.com")
 #
 ###
+
+# Usar una imagen base más ligera para ejecutar la aplicación
 FROM registry.access.redhat.com/ubi8/openjdk-17:1.19
+WORKDIR /project
 
 ENV LANGUAGE='en_US:en'
 
+# Copiar el código fuente y el archivo de configuración de Maven
+COPY src /project/src
+COPY pom.xml /project/pom.xml
+
+# Instalar Maven 3.9
+USER root
+RUN microdnf install -y curl tar gzip \
+    && curl -fsSL https://downloads.apache.org/maven/maven-3/3.9.8/binaries/apache-maven-3.9.8-bin.tar.gz -o /tmp/apache-maven-3.9.0-bin.tar.gz \
+    && tar -xzf /tmp/apache-maven-3.9.0-bin.tar.gz -C /opt \
+    && rm /tmp/apache-maven-3.9.0-bin.tar.gz
+
+# Configurar variables de entorno para Maven
+ENV MAVEN_HOME=/opt/apache-maven-3.9.8
+ENV PATH=${MAVEN_HOME}/bin:${PATH}
+
+# Compilar la aplicación
+RUN mvn clean package
 
 # We make four distinct layers so if there are application changes the library layers can be re-used
-COPY --chown=185 target/quarkus-app/lib/ /deployments/lib/
-COPY --chown=185 target/quarkus-app/*.jar /deployments/
-COPY --chown=185 target/quarkus-app/app/ /deployments/app/
-COPY --chown=185 target/quarkus-app/quarkus/ /deployments/quarkus/
+# COPY --chown=185 target/quarkus-app/lib/ /deployments/lib/
+# COPY --chown=185 target/quarkus-app/*.jar /deployments/
+# COPY --chown=185 target/quarkus-app/app/ /deployments/app/
+# COPY --chown=185 target/quarkus-app/quarkus/ /deployments/quarkus/
 
 EXPOSE 8080
 USER 185
