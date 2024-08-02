@@ -14,7 +14,7 @@
 # docker run -i --rm -p 8080:8080 quarkus/kubernetes-quarkus
 #
 ###
-FROM registry.access.redhat.com/ubi8/ubi-minimal AS build
+FROM quay.io/quarkus/ubi-quarkus-mandrel-builder-image:jdk-17 AS build
 WORKDIR /project
 
 # Copiar el código fuente y el archivo de configuración de Maven
