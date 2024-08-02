@@ -17,3 +17,16 @@ spec:
         image: crindratrainingdev.azurecr.io/rahozindracompany/k8s-quarkus-quickstart:$(Build.BuildId)
         ports:
         - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: quarkus-service
+spec:
+  selector:
+    app: quarkus-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
