@@ -13,11 +13,5 @@ public class GreetingResource {
     public String hello() {
         return "Hola mundo generacion de kubernetes.yml automatico para formacion de Quarkus en Indra";
     }
-
-    @GET
-	@Produces(MediaType.TEXT_PLAIN)
-	@Path("/2")
-	public String hello2() {
-       return "Hola Comunidad Java del DN";
-	}	    
+ 
 }
