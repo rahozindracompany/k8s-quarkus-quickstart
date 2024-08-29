@@ -26,6 +26,5 @@ public class GreetingResource {
     @Path("/3")
     public String hello3() {
         return "Hola mundo #3 de la comunidad Java del DN";
-    }
- 
+    } 
 }
